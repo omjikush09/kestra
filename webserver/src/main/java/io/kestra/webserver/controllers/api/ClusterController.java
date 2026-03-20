@@ -1,19 +1,25 @@
 package io.kestra.webserver.controllers.api;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import io.kestra.core.repositories.ServiceInstanceRepositoryInterface;
-import io.kestra.core.server.*;
+import io.kestra.core.server.Metric;
+import io.kestra.core.server.Service;
+import io.kestra.core.server.ServiceInstance;
+import io.kestra.core.server.ServiceType;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.data.model.Pageable;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.annotation.*;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.PathVariable;
+import io.micronaut.http.annotation.QueryValue;
 import io.micronaut.http.exceptions.HttpStatusException;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.inject.Inject;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller("/api/v1/{tenant}/cluster")
 @Requires(bean = ServiceInstanceRepositoryInterface.class)
@@ -39,6 +45,7 @@ public class ClusterController {
     @Get("/metrics/{serviceType}")
     @Operation(tags = {"Services"}, summary = "Get metrics for running services")
     public Set<Metric> metrics(@QueryValue ServiceType serviceType) {
+        System.out.println("serviceType: " + serviceType);
         return repository.find(
                 Pageable.unpaged(),
                 Service.ServiceState.allRunningStates(),
