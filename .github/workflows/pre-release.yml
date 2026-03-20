@@ -60,6 +60,7 @@ jobs:
 
   publish-github:
     name: Github Release
+    needs: [build-artifacts]
     if: "!failure() && !cancelled()"
     uses: omjikush09/actions/.github/workflows/kestra-oss-publish-github.yml@main
     secrets:
