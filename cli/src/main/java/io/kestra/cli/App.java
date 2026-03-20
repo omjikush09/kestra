@@ -50,7 +50,7 @@ public class App implements Callable<Integer> {
     }
 
     public static int runCli(String[] args, String... extraEnvironments) {
-        System.out.println("Test: Starting Kestra CLI v1.5.0-rc.1");
+        System.out.println("Test: Starting Kestra CLI v9.18.0-rc2");
         return runCli(App.class, args, extraEnvironments);
     }
 
