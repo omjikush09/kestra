@@ -45,7 +45,6 @@ public class ClusterController {
     @Get("/metrics/{serviceType}")
     @Operation(tags = {"Services"}, summary = "Get metrics for running services")
     public Set<Metric> metrics(@QueryValue ServiceType serviceType) {
-        System.out.println("serviceType: " + serviceType);
         return repository.find(
                 Pageable.unpaged(),
                 Service.ServiceState.allRunningStates(),
